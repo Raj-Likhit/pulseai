@@ -1,41 +1,7 @@
 import { Link } from 'react-router-dom';
 import AnimatedContent from '../components/animations/AnimatedContent';
 import StarBorder from '../components/ui/StarBorder';
-
-const VALUES = [
-    {
-        title: 'Craft',
-        desc: 'We believe great tools should feel great to use. Every interaction is deliberate. Every pixel earns its place.',
-        icon: '◈',
-    },
-    {
-        title: 'Transparency',
-        desc: 'No model training on your data. No hidden costs. No vendor lock-in. We say what we do and do what we say.',
-        icon: '◉',
-    },
-    {
-        title: 'Velocity',
-        desc: 'We ship weekly. We listen obsessively. If you tell us something is broken, we fix it before Thursday.',
-        icon: '◐',
-    },
-];
-
-const TEAM = [
-    { name: 'Aria Chen', role: 'CEO & Co-founder', initials: 'AC', bg: 'linear-gradient(135deg, #F4A623, #FF6348)' },
-    { name: 'Marcus Webb', role: 'CTO & Co-founder', initials: 'MW', bg: 'linear-gradient(135deg, #D1FF4D, #F4A623)' },
-    { name: 'Priya Nair', role: 'Head of Design', initials: 'PN', bg: 'linear-gradient(135deg, #FF6348, #F4A623)' },
-    { name: 'Leo Bauer', role: 'Head of Engineering', initials: 'LB', bg: 'linear-gradient(135deg, #F97316, #D1FF4D)' },
-    { name: 'Sofia Reyes', role: 'Head of Product', initials: 'SR', bg: 'linear-gradient(135deg, #FF6348, #D1FF4D)' },
-    { name: 'Jin Park', role: 'Head of Growth', initials: 'JP', bg: 'linear-gradient(135deg, #F97316, #FF6348)' },
-];
-
-const MILESTONES = [
-    { year: '2022', event: 'Founded in San Francisco with a €2M seed round.' },
-    { year: '2023', event: 'Launched private beta. 10,000 signups in 48 hours.' },
-    { year: '2024', event: 'Series A: $18M. Launched Pulse Pro with node canvas.' },
-    { year: '2025', event: 'Reached 50,000 active teams. SOC 2 Type II certified.' },
-    { year: '2026', event: 'Pulse 2.0 — AI Workspace. Available now.' },
-];
+import { ABOUT_VALUES, ABOUT_TEAM, ABOUT_MILESTONES } from '../data/content';
 
 export default function About() {
     return (
@@ -62,7 +28,7 @@ export default function About() {
                 }} />
 
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'var(--space-12)', alignItems: 'center' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--space-12)', alignItems: 'center' }}>
                         <AnimatedContent direction="left">
                             <div style={{ marginBottom: '24px', display: 'inline-block' }}>
                                 <StarBorder as="div" color="var(--accent)" speed="4s">
@@ -93,7 +59,7 @@ export default function About() {
 
             {/* Mission */}
             <section style={{ padding: '128px 32px', background: 'var(--bg-surface)' }}>
-                <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+                <div className="container about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
                     <AnimatedContent>
                         <p className="eyebrow" style={{ marginBottom: '20px' }}>Our mission</p>
                         <h2 className="display-xl" style={{ marginBottom: '24px' }}>
@@ -119,12 +85,12 @@ export default function About() {
                         <p className="eyebrow" style={{ marginBottom: '20px' }}>Values</p>
                         <h2 className="display-xl" style={{ marginBottom: '80px' }}>What we stand for</h2>
                     </AnimatedContent>
-                    <div style={{
+                    <div className="values-grid" style={{
                         display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
                         gap: '1px', background: 'var(--border)',
                         border: '1px solid var(--border)', borderRadius: '16px', overflow: 'hidden',
                     }}>
-                        {VALUES.map((v, i) => (
+                        {ABOUT_VALUES.map((v, i) => (
                             <AnimatedContent key={v.title} delay={i * 80}>
                                 <div style={{
                                     padding: '48px 40px', background: 'var(--bg)',
@@ -153,7 +119,7 @@ export default function About() {
                         <h2 className="display-xl" style={{ marginBottom: '80px' }}>The people behind Pulse</h2>
                     </AnimatedContent>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '16px' }}>
-                        {TEAM.map((member, i) => (
+                        {ABOUT_TEAM.map((member, i) => (
                             <AnimatedContent key={member.name} delay={i * 60}>
                                 <div style={{
                                     background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '16px',
@@ -192,7 +158,7 @@ export default function About() {
                         <h2 className="display-xl" style={{ marginBottom: '64px' }}>How we got here</h2>
                     </AnimatedContent>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-                        {MILESTONES.map((m, i) => (
+                        {ABOUT_MILESTONES.map((m, i) => (
                             <AnimatedContent key={m.year} delay={i * 80}>
                                 <div style={{
                                     display: 'grid', gridTemplateColumns: '80px 1fr', gap: '32px',

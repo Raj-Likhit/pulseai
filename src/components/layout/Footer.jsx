@@ -74,10 +74,10 @@ export default function Footer() {
 
             {/* Main footer grid */}
             <div className="container" style={{ padding: 'var(--space-8) var(--space-4)' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: 'var(--space-6)' }}>
+                <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: 'var(--space-6)' }}>
 
                     {/* Brand */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }} className="footer-brand">
                         <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                             <Logo size={28} />
                         </Link>
@@ -177,6 +177,15 @@ export default function Footer() {
                     </span>
                 </div>
             </div>
+            <style>{`
+                @media (max-width: 768px) {
+                    .footer-grid { grid-template-columns: 1fr 1fr !important; }
+                    .footer-brand { grid-column: 1 / -1; margin-bottom: 24px; }
+                }
+                @media (max-width: 480px) {
+                    .footer-grid { grid-template-columns: 1fr !important; }
+                }
+            `}</style>
         </footer>
     )
 }

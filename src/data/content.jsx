@@ -58,6 +58,93 @@ export const LANDING_FAQS = [
     { q: 'What is the pricing model?', a: 'We charge a flat platform fee based on your plan tier plus pass-through model costs with zero markup. No hidden fees, no per-seat pricing.' },
 ];
 
+export const FEATURES_DATA = [
+    {
+        id: '01',
+        title: 'Smart Orchestration',
+        subtitle: 'Route every task to the right model, automatically.',
+        desc: 'Pulse\'s orchestration layer learns from your workflows. It monitors latency, cost, and quality — and routes each task to the optimal model without any manual intervention.',
+        benefits: ['Automatic model selection', 'Latency & cost monitoring', 'Fallback routing', 'A/B model testing'],
+        accent: 'var(--lime)',
+    },
+    {
+        id: '02',
+        title: 'Node-Based Canvas',
+        subtitle: 'Visual logic that your whole team understands.',
+        desc: 'Build complex AI workflows by connecting nodes on a canvas. No code required. Each node is a step: a prompt, a model call, a tool, a branch condition. Chain them infinitely.',
+        benefits: ['Drag-and-drop builder', 'Conditional branching', 'Infinite nesting', 'Version history'],
+        accent: 'var(--accent)',
+    },
+    {
+        id: '03',
+        title: 'Predictive Context',
+        subtitle: 'AI memory that spans your entire workspace.',
+        desc: 'Pulse maintains a persistent knowledge graph of every workflow, output, and decision. Your AI never forgets project context — it builds on it.',
+        benefits: ['Cross-session memory', 'Semantic search', 'Entity extraction', 'Linked contexts'],
+        accent: 'var(--accent2)',
+    },
+    {
+        id: '04',
+        title: 'Team Collaboration',
+        subtitle: 'Real-time multiplayer on every workflow.',
+        desc: 'Multiple people can edit, run, and comment on the same workflow simultaneously. Live cursors, inline comments, and conflict-free syncing — like Figma, but for AI.',
+        benefits: ['Live presence', 'Inline comments', 'Role-based access', 'Activity feed'],
+        accent: 'var(--accent)',
+    },
+    {
+        id: '05',
+        title: 'Enterprise Security',
+        subtitle: 'SOC 2 certified. Zero data training.',
+        desc: 'Your data never trains our models. We never share it. Pulse is SOC 2 Type II certified with end-to-end encryption, SSO, SCIM, and a full audit log.',
+        benefits: ['SOC 2 Type II', 'SSO & SCIM', 'Audit logs', 'Custom data residency'],
+        accent: 'var(--lime)',
+    },
+    {
+        id: '06',
+        title: 'Analytics & Insights',
+        subtitle: 'Full observability into every AI interaction.',
+        desc: 'Real-time dashboards track token usage, latency by node, cost per run, and team output metrics. Spot bottlenecks and optimise in seconds.',
+        benefits: ['Token usage tracking', 'Cost attribution', 'Latency heatmaps', 'Export to Datadog / Grafana'],
+        accent: 'var(--accent2)',
+    },
+];
+
+export const ABOUT_VALUES = [
+    {
+        title: 'Craft',
+        desc: 'We believe great tools should feel great to use. Every interaction is deliberate. Every pixel earns its place.',
+        icon: '◈',
+    },
+    {
+        title: 'Transparency',
+        desc: 'No model training on your data. No hidden costs. No vendor lock-in. We say what we do and do what we say.',
+        icon: '◉',
+    },
+    {
+        title: 'Velocity',
+        desc: 'We ship weekly. We listen obsessively. If you tell us something is broken, we fix it before Thursday.',
+        icon: '◐',
+    },
+];
+
+export const ABOUT_TEAM = [
+    { name: 'Aria Chen', role: 'CEO & Co-founder', initials: 'AC', bg: 'linear-gradient(135deg, #F4A623, #FF6348)' },
+    { name: 'Marcus Webb', role: 'CTO & Co-founder', initials: 'MW', bg: 'linear-gradient(135deg, #D1FF4D, #F4A623)' },
+    { name: 'Priya Nair', role: 'Head of Design', initials: 'PN', bg: 'linear-gradient(135deg, #FF6348, #F4A623)' },
+    { name: 'Leo Bauer', role: 'Head of Engineering', initials: 'LB', bg: 'linear-gradient(135deg, #F97316, #D1FF4D)' },
+    { name: 'Sofia Reyes', role: 'Head of Product', initials: 'SR', bg: 'linear-gradient(135deg, #FF6348, #D1FF4D)' },
+    { name: 'Jin Park', role: 'Head of Growth', initials: 'JP', bg: 'linear-gradient(135deg, #F97316, #FF6348)' },
+];
+
+export const ABOUT_MILESTONES = [
+    { year: '2022', event: 'Founded in San Francisco with a €2M seed round.' },
+    { year: '2023', event: 'Launched private beta. 10,000 signups in 48 hours.' },
+    { year: '2024', event: 'Series A: $18M. Launched Pulse Pro with node canvas.' },
+    { year: '2025', event: 'Reached 50,000 active teams. SOC 2 Type II certified.' },
+    { year: '2026', event: 'Pulse 2.0 — AI Workspace. Available now.' },
+];
+
+
 export const PRICING_PLANS = [
     {
         name: 'Starter',

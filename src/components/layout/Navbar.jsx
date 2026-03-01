@@ -38,7 +38,7 @@ export default function Navbar() {
 
     return (
         <>
-            <div style={{ position: 'fixed', top: '24px', left: 0, right: 0, zIndex: 1000, pointerEvents: 'none', display: 'flex', justifyContent: 'center', padding: '0 var(--space-4)' }}>
+            <div style={{ position: 'fixed', top: '24px', left: 0, right: 0, zIndex: 1000, pointerEvents: 'none', display: 'flex', justifyContent: 'center', padding: '0 var(--space-4)' }} className="navbar-wrapper">
                 <nav style={{
                     pointerEvents: 'all',
                     width: '100%', maxWidth: '840px',
@@ -133,7 +133,8 @@ export default function Navbar() {
                     <style>{`
           @media (max-width: 768px) {
             .desktop-nav     { display: none !important; }
-            .mobile-controls { display: flex !important; }
+            .mobile-controls { display: flex !important; align-items: center; gap: 8px !important; }
+            .navbar-wrapper  { padding: 0 var(--space-3) !important; top: 16px !important; }
           }
         `}</style>
                 </nav>
@@ -141,7 +142,7 @@ export default function Navbar() {
 
             {/* Mobile menu */}
             <div style={{
-                position: 'fixed', top: 'var(--nav-h)', left: 0, right: 0, bottom: 0,
+                position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
                 background: isDark ? 'rgba(11,9,6,0.97)' : 'rgba(249,244,236,0.97)',
                 backdropFilter: 'blur(24px)', zIndex: 999,
                 display: 'flex', flexDirection: 'column',

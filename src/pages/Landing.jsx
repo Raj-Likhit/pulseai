@@ -29,7 +29,7 @@ export default function Landing() {
             {/* ── Stats bar ─────────────────────────────── */}
             <section style={{ padding: 'var(--space-6) 0', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
                 <div className="container">
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--space-4)', textAlign: 'center' }}>
+                    <div className="grid grid-cols-4" style={{ gap: 'var(--space-4)', textAlign: 'center' }}>
                         {[
                             { value: 50, suffix: 'K+', label: 'Active teams', color: 'var(--accent)' },
                             { value: 40, suffix: '+', label: 'AI models', color: 'var(--accent2)' },

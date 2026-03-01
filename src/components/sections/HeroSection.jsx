@@ -35,7 +35,7 @@ export default function HeroSection() {
             <div className="container" style={{ width: '100%', position: 'relative', zIndex: 2 }}>
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                     gap: 'var(--space-8)',
                     alignItems: 'center',
                     minHeight: 'calc(100vh - var(--nav-h))',

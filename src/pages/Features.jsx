@@ -1,57 +1,7 @@
 import { Link } from 'react-router-dom';
 import AnimatedContent from '../components/animations/AnimatedContent';
 import StarBorder from '../components/ui/StarBorder';
-
-const FEATURES = [
-    {
-        id: '01',
-        title: 'Smart Orchestration',
-        subtitle: 'Route every task to the right model, automatically.',
-        desc: 'Pulse\'s orchestration layer learns from your workflows. It monitors latency, cost, and quality — and routes each task to the optimal model without any manual intervention.',
-        benefits: ['Automatic model selection', 'Latency & cost monitoring', 'Fallback routing', 'A/B model testing'],
-        accent: 'var(--lime)',
-    },
-    {
-        id: '02',
-        title: 'Node-Based Canvas',
-        subtitle: 'Visual logic that your whole team understands.',
-        desc: 'Build complex AI workflows by connecting nodes on a canvas. No code required. Each node is a step: a prompt, a model call, a tool, a branch condition. Chain them infinitely.',
-        benefits: ['Drag-and-drop builder', 'Conditional branching', 'Infinite nesting', 'Version history'],
-        accent: 'var(--accent)',
-    },
-    {
-        id: '03',
-        title: 'Predictive Context',
-        subtitle: 'AI memory that spans your entire workspace.',
-        desc: 'Pulse maintains a persistent knowledge graph of every workflow, output, and decision. Your AI never forgets project context — it builds on it.',
-        benefits: ['Cross-session memory', 'Semantic search', 'Entity extraction', 'Linked contexts'],
-        accent: 'var(--accent2)',
-    },
-    {
-        id: '04',
-        title: 'Team Collaboration',
-        subtitle: 'Real-time multiplayer on every workflow.',
-        desc: 'Multiple people can edit, run, and comment on the same workflow simultaneously. Live cursors, inline comments, and conflict-free syncing — like Figma, but for AI.',
-        benefits: ['Live presence', 'Inline comments', 'Role-based access', 'Activity feed'],
-        accent: 'var(--accent)',
-    },
-    {
-        id: '05',
-        title: 'Enterprise Security',
-        subtitle: 'SOC 2 certified. Zero data training.',
-        desc: 'Your data never trains our models. We never share it. Pulse is SOC 2 Type II certified with end-to-end encryption, SSO, SCIM, and a full audit log.',
-        benefits: ['SOC 2 Type II', 'SSO & SCIM', 'Audit logs', 'Custom data residency'],
-        accent: 'var(--lime)',
-    },
-    {
-        id: '06',
-        title: 'Analytics & Insights',
-        subtitle: 'Full observability into every AI interaction.',
-        desc: 'Real-time dashboards track token usage, latency by node, cost per run, and team output metrics. Spot bottlenecks and optimise in seconds.',
-        benefits: ['Token usage tracking', 'Cost attribution', 'Latency heatmaps', 'Export to Datadog / Grafana'],
-        accent: 'var(--accent2)',
-    },
-];
+import { FEATURES_DATA } from '../data/content';
 
 export default function Features() {
     return (
@@ -78,7 +28,7 @@ export default function Features() {
                 }} />
 
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'var(--space-12)', alignItems: 'center' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--space-12)', alignItems: 'center' }}>
                         <AnimatedContent direction="left">
                             <div style={{ marginBottom: '24px', display: 'inline-block' }}>
                                 <StarBorder as="div" color="var(--accent)" speed="4s">
@@ -104,7 +54,7 @@ export default function Features() {
                             }}>
                                 {/* Edge feathered mask + screen blend mode guarantees black backgrounds become completely transparent */}
                                 <img
-                                    src="/features-hero.png"
+                                    src="/features-hero.webp"
                                     alt="Pulse AI Orchestration Features"
                                     style={{
                                         width: '120%',
@@ -124,7 +74,7 @@ export default function Features() {
 
             {/* Feature deep-dives */}
             {
-                FEATURES.map((f, i) => (
+                FEATURES_DATA.map((f, i) => (
                     <section
                         key={f.id}
                         style={{
@@ -133,7 +83,7 @@ export default function Features() {
                             borderBottom: '1px solid var(--border)',
                         }}
                     >
-                        <div className="container" style={{
+                        <div className="container feature-grid" style={{
                             display: 'grid',
                             gridTemplateColumns: '1fr 1fr',
                             gap: '80px',
