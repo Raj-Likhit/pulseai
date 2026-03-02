@@ -46,7 +46,7 @@ export default function Navbar() {
                     display: 'flex', alignItems: 'center',
                     padding: '0 8px 0 20px',
                     background: navBg,
-                    backdropFilter: 'blur(24px) saturate(180%)',
+                    backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'blur(12px) saturate(180%)',
                     border: `1px solid ${navBorder}`,
                     borderRadius: '999px',
                     boxShadow: scrolled
@@ -135,6 +135,7 @@ export default function Navbar() {
             .desktop-nav     { display: none !important; }
             .mobile-controls { display: flex !important; align-items: center; gap: 8px !important; }
             .navbar-wrapper  { padding: 0 var(--space-3) !important; top: 16px !important; }
+            nav { padding: 0 12px 0 16px !important; backdrop-filter: blur(12px) saturate(180%) !important; }
           }
         `}</style>
                 </nav>

@@ -15,7 +15,7 @@ export default function Pricing() {
             {/* Hero */}
             <section style={{ padding: 'var(--space-16) 32px var(--space-12)', textAlign: 'center', borderBottom: '1px solid var(--border)', position: 'relative', overflow: 'hidden' }}>
                 {/* Hero background glow */}
-                <div style={{
+                <div className="pricing-hero-glow" style={{
                     position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%) translateZ(0)',
                     width: '80vw', height: '60vw',
                     background: 'radial-gradient(ellipse at 50% 0%, rgba(244, 166, 35, 0.12) 0%, transparent 70%)',
@@ -235,6 +235,11 @@ export default function Pricing() {
                 </div>
             </section>
 
+            <style>{`
+                @media (max-width: 768px) {
+                    .pricing-hero-glow { display: none !important; }
+                }
+            `}</style>
         </main>
     );
 }

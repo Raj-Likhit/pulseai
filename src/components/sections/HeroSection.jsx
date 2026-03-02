@@ -69,7 +69,7 @@ export default function HeroSection() {
                                 Connect, orchestrate, and deploy every major AI model from a single unified platform. Ship AI features 10× faster.
                             </p>
 
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', flexWrap: 'wrap' }} className="hero-cta-group">
                                 <Link to="/signup" className="btn-primary" style={{ fontSize: '15px', padding: '16px 32px' }}>
                                     Start free <ArrowRight size={15} style={{ marginLeft: '4px', verticalAlign: 'middle' }} />
                                 </Link>
@@ -108,7 +108,7 @@ export default function HeroSection() {
 
                     {/* Right — 3D visualization */}
                     <AnimatedContent direction="right" duration={800}>
-                        <div style={{ height: '520px', position: 'relative' }}>
+                        <div style={{ height: '520px', position: 'relative' }} className="hero-3d-container">
                             <Hero3D />
                         </div>
                     </AnimatedContent>
@@ -131,6 +131,10 @@ export default function HeroSection() {
             @keyframes scrollBounce {
                 0%, 100% { transform: translateX(-50%) translateY(0); }
                 50% { transform: translateX(-50%) translateY(6px); opacity: 0.5; }
+            }
+            @media (max-width: 768px) {
+                .hero-3d-container { height: 400px !important; }
+                .hero-cta-group { gap: 16px !important; justify-content: center; }
             }
             `}</style>
         </section>

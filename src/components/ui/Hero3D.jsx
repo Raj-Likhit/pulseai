@@ -1,15 +1,16 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 
 /* ── Hero3D ──────────────────────────────────────────────────────
-   3D rotating card with mouse-tracked LERP rotation.
-   Colors adapt to current theme via CSS variables.
+   3D rotating card with mouse/touch-tracked LERP rotation.
+   Uses Framer Motion for high-performance animations.
    ─────────────────────────────────────────────────────────────── */
 export default function Hero3D() {
     const sceneRef = useRef(null);
-    const rafRef = useRef(null);
     const mouseRef = useRef({ x: 0, y: 0 });
     const currentRef = useRef({ x: 0, y: 0 });
+    const [autoRotate, setAutoRotate] = useState(true);
     const { theme } = useTheme();
     const isDark = theme === 'dark';
 
@@ -62,36 +63,55 @@ export default function Hero3D() {
 
     useEffect(() => {
         const onMove = e => {
+            setAutoRotate(false);
             const { innerWidth: w, innerHeight: h } = window;
+            const x = e.touches ? e.touches[0].clientX : e.clientX;
+            const y = e.touches ? e.touches[0].clientY : e.clientY;
             mouseRef.current = {
-                x: (e.clientX / w - 0.5) * 2,
-                y: (e.clientY / h - 0.5) * 2,
+                x: (x / w - 0.5) * 2,
+                y: (y / h - 0.5) * 2,
             };
         };
+
         window.addEventListener('mousemove', onMove);
+        window.addEventListener('touchmove', onMove, { passive: true });
 
         const lerp = (a, b, t) => a + (b - a) * t;
+        let raf;
         const animate = () => {
+            if (autoRotate) {
+                // Subtle idle rotation
+                const time = Date.now() * 0.001;
+                mouseRef.current.x = Math.sin(time * 0.5) * 0.2;
+                mouseRef.current.y = Math.cos(time * 0.3) * 0.1;
+            }
+
             currentRef.current.x = lerp(currentRef.current.x, mouseRef.current.x, 0.05);
             currentRef.current.y = lerp(currentRef.current.y, mouseRef.current.y, 0.05);
+
             if (sceneRef.current) {
-                const rotY = currentRef.current.x * 14;
-                const rotX = -currentRef.current.y * 10;
-                sceneRef.current.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+                const rotY = currentRef.current.x * 12;
+                const rotX = -currentRef.current.y * 8;
+                sceneRef.current.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
             }
-            rafRef.current = requestAnimationFrame(animate);
+            raf = requestAnimationFrame(animate);
         };
-        rafRef.current = requestAnimationFrame(animate);
-        return () => { window.removeEventListener('mousemove', onMove); cancelAnimationFrame(rafRef.current); };
-    }, []);
+        raf = requestAnimationFrame(animate);
+
+        return () => {
+            window.removeEventListener('mousemove', onMove);
+            window.removeEventListener('touchmove', onMove);
+            cancelAnimationFrame(raf);
+        };
+    }, [autoRotate]);
 
     const nodes = [
         { id: 'n1', x: '18%', y: '22%', label: 'GPT-4o', color: c.lineFill1, delay: 0 },
         { id: 'n2', x: '72%', y: '15%', label: 'Claude 3.5', color: c.lineFill2, delay: 0.3 },
-        { id: 'n3', x: '80%', y: '68%', label: 'LLaMA 3', color: c.metricUptime, delay: 0.6 },
-        { id: 'n4', x: '12%', y: '70%', label: 'Gemini', color: c.metricLatency, delay: 0.9 },
-        { id: 'n5', x: '48%', y: '85%', label: 'Mistral', color: c.metricReq, delay: 1.2 },
-        { id: 'central', x: '50%', y: '48%', label: 'PULSE', isCenter: true },
+        { id: 'n3', x: '80%', y: '62%', label: 'LLaMA 3', color: c.metricUptime, delay: 0.6 },
+        { id: 'n4', x: '12%', y: '64%', label: 'Gemini', color: c.metricLatency, delay: 0.9 },
+        { id: 'n5', x: '48%', y: '76%', label: 'Mistral', color: c.metricReq, delay: 1.2 },
+        { id: 'central', x: '50%', y: '46%', label: 'PULSE', isCenter: true },
     ];
 
     const getPos = id => { const n = nodes.find(n => n.id === id); return n ? { x: parseFloat(n.x), y: parseFloat(n.y) } : { x: 50, y: 50 }; };
@@ -145,27 +165,55 @@ export default function Hero3D() {
 
                     {/* Nodes */}
                     {nodes.map(node => (
-                        <div key={node.id} style={{
-                            position: 'absolute', left: node.x, top: node.y,
-                            transform: 'translate(-50%, -50%)',
-                            animation: node.isCenter ? 'none' : `floatNode ${3 + parseFloat(node.delay)}s ease-in-out ${node.delay}s infinite alternate`,
-                            zIndex: node.isCenter ? 3 : 2,
-                        }}>
+                        <motion.div
+                            key={node.id}
+                            style={{
+                                position: 'absolute', left: node.x, top: node.y,
+                                transform: 'translate(-50%, -50%)',
+                                zIndex: node.isCenter ? 3 : 2,
+                            }}
+                            animate={node.isCenter ? {} : {
+                                y: [-6, 6],
+                            }}
+                            transition={{
+                                y: {
+                                    duration: 2 + Math.random(),
+                                    repeat: Infinity,
+                                    repeatType: "mirror",
+                                    ease: "easeInOut",
+                                    delay: node.delay
+                                }
+                            }}
+                        >
                             {node.isCenter ? (
-                                <div style={{
-                                    width: 72, height: 72, borderRadius: '50%',
-                                    background: c.hubBg, border: `2px solid ${c.hubBorder}`,
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    boxShadow: c.hubShadow, animation: 'pulseCenter 2s ease-in-out infinite',
-                                    flexDirection: 'column', gap: '3px',
-                                }}>
+                                <motion.div
+                                    animate={{
+                                        boxShadow: [c.hubShadow, c.hubShadowPulse, c.hubShadow]
+                                    }}
+                                    transition={{
+                                        duration: 2,
+                                        repeat: Infinity,
+                                        ease: "easeInOut"
+                                    }}
+                                    style={{
+                                        width: 72, height: 72, borderRadius: '50%',
+                                        background: c.hubBg, border: `2px solid ${c.hubBorder}`,
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        flexDirection: 'column', gap: '3px',
+                                    }}
+                                >
                                     <span style={{ fontSize: '10px', fontWeight: 800, letterSpacing: '0.1em', color: isDark ? '#0B0906' : '#FAF3E0', fontFamily: 'var(--font-display)' }}>PULSE</span>
                                     <div style={{ display: 'flex', gap: '3px' }}>
                                         {[...Array(3)].map((_, i) => (
-                                            <div key={i} style={{ width: 4, height: 4, borderRadius: '50%', background: isDark ? 'rgba(11,9,6,0.5)' : 'rgba(250,243,224,0.5)', animation: `barPulse 1s ${i * 0.2}s ease-in-out infinite alternate` }} />
+                                            <motion.div
+                                                key={i}
+                                                animate={{ scaleY: [0.5, 1.5, 0.5], opacity: [0.5, 1, 0.5] }}
+                                                transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                                                style={{ width: 4, height: 4, borderRadius: '50%', background: isDark ? 'rgba(11,9,6,0.5)' : 'rgba(250,243,224,0.5)' }}
+                                            />
                                         ))}
                                     </div>
-                                </div>
+                                </motion.div>
                             ) : (
                                 <div style={{
                                     background: c.nodeBg, border: `1px solid ${node.color}35`,
@@ -174,11 +222,15 @@ export default function Hero3D() {
                                     backdropFilter: 'blur(10px)',
                                     boxShadow: `0 4px 20px ${node.color}18, 0 0 0 1px ${node.color}12`,
                                 }}>
-                                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: node.color, boxShadow: `0 0 8px ${node.color}`, animation: 'pulseDot 2s ease-in-out infinite' }} />
+                                    <motion.div
+                                        animate={{ opacity: [1, 0.6, 1], scale: [1, 0.85, 1] }}
+                                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                        style={{ width: 8, height: 8, borderRadius: '50%', background: node.color, boxShadow: `0 0 8px ${node.color}` }}
+                                    />
                                     <span style={{ fontSize: '11px', fontWeight: 700, color: c.text, whiteSpace: 'nowrap', letterSpacing: '0.02em' }}>{node.label}</span>
                                 </div>
                             )}
-                        </div>
+                        </motion.div>
                     ))}
 
                     {/* Metrics bar */}
@@ -214,28 +266,14 @@ export default function Hero3D() {
             </div>
 
             <style>{`
-        @keyframes floatNode {
-          from { transform: translate(-50%, -50%) translateY(0px); }
-          to   { transform: translate(-50%, -50%) translateY(-12px); }
-        }
         @keyframes dashMove {
           from { stroke-dashoffset: 0; }
           to   { stroke-dashoffset: -20; }
         }
-        @keyframes pulseCenter {
-          0%, 100% { box-shadow: ${c.hubShadow}; }
-          50%       { box-shadow: ${c.hubShadowPulse}; }
-        }
-        @keyframes pulseDot {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.6; transform: scale(0.85); }
-        }
-        @keyframes barPulse {
-          from { transform: scaleY(0.5); opacity: 0.5; }
-          to   { transform: scaleY(1.5); opacity: 1; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          * { animation: none !important; }
+        @media (max-width: 768px) {
+          .pricing-hero-glow { display: none !important; }
+          /* Reduce blur on mobile for perf */
+          [style*="backdrop-filter: blur(20px)"] { backdrop-filter: blur(10px) !important; }
         }
       `}</style>
         </div>

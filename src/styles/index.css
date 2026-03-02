@@ -680,6 +680,13 @@ ol {
   will-change: opacity, transform;
 }
 
+@media (max-width: 768px) {
+  .reveal {
+    transform: translateY(12px) translateZ(0);
+    /* Reduced travel for smoothness on mobile */
+  }
+}
+
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
@@ -759,8 +766,8 @@ ol {
   }
 
   .container {
-    padding: 0 var(--space-3);
-    /* Increased to 24px from 16px to prevent edge hugging */
+    padding: 0 var(--space-4);
+    /* Increased to 32px for better breathing room */
   }
 
   .grid-cols-4,
@@ -777,7 +784,8 @@ ol {
   }
 
   .display-hero {
-    font-size: clamp(42px, 10vw, 56px);
+    font-size: clamp(40px, 10vw, 56px);
+    /* Scaled down for mobile */
   }
 }
 
@@ -822,32 +830,30 @@ ol {
 }
 
 .billing-toggle {
-  width: 56px;
-  height: 30px;
-  border-radius: 999px;
-  background: rgba(150, 150, 150, 0.2);
-  border: none;
-  cursor: pointer;
+  width: 48px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--border-bright);
+  /* High contrast track */
   position: relative;
-  transition: background 300ms ease, box-shadow 300ms ease;
+  transition: background 300ms ease;
   flex-shrink: 0;
-  outline: none;
 }
 
 .billing-toggle.active {
-  background: var(--btn-grad);
+  background: var(--accent);
 }
 
 .billing-toggle-thumb {
   position: absolute;
   top: 3px;
   left: 3px;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: left 300ms var(--ease-spring);
+  transition: transform 300ms var(--ease-spring);
 }
 
 .billing-toggle.active .billing-toggle-thumb {
