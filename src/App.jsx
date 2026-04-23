@@ -5,6 +5,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import ScrollToTop from './components/utils/ScrollToTop'
+import CodePopup from './components/ui/CodePopup'
 
 // Dynamic imports for bundle splitting
 const Landing = lazy(() => import('./pages/Landing'))
@@ -78,6 +79,7 @@ function Layout() {
                 </Routes>
             </Suspense>
             {!isSignup && <Footer />}
+            <CodePopup />
         </>
     )
 }
